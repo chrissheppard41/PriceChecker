@@ -1,9 +1,7 @@
 package com.sparky.Price.Compare;
 
-import com.sparky.Price.Product.ProductController;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
