@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -6,7 +7,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
 
     <title>Compare Admin</title>
 </head>
@@ -36,7 +37,7 @@
                         <h1>Product</h1>
                     </div>
                     <div class="col-md-12">
-                        <a href="#" class="btn btn-success">Create new Product</a>
+                        <a href="/price/api/product/admin/add" class="btn btn-success">Create new Product</a>
 
 
                         <table class="table table-striped">
@@ -48,30 +49,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              <tr class="row">
-                                <td class="col-6">
-                                  Test name
-                                </td>
-                                <td class="col-3">
-                                  Today
-                                </td>
-                                <td class="col-3">
-                                  <a href="#" class="btn btn-primary">Edit</a>
-                                  <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                              </tr>
-                              <tr class="row">
-                                <td class="col-6">
-                                  Test name 2
-                                </td>
-                                <td class="col-3">
-                                  Today
-                                </td>
-                                <td class="col-3">
-                                  <a href="#" class="btn btn-primary">Edit</a>
-                                  <a href="#" class="btn btn-danger">Delete</a>
-                                </td>
-                              </tr>
+                                <c:forEach var="posts" items="${posts}">
+                                    <tr class="row">
+                                        <td class="col-6">
+                                            <c:out value="${posts.name}"/>
+                                        </td>
+                                        <td class="col-3">
+                                            <c:out value="${posts.date}"/>
+                                        </td>
+                                        <td class="col-3">
+                                            <a href="/price/api/product/admin/${posts.id}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
+                                            <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                           </tbody>
                         </table>
 
