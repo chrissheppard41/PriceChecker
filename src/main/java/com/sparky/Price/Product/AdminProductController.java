@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,9 +35,9 @@ public class AdminProductController {
     / get: list
     /add get: configure new item
     /add post: post new item
-    /{id} get: get item
-    /{id} post: update item
-    /{id} delete: delete item
+    /edit/{id} get: get item
+    /edit/{id} post: update item
+    /delete/{id} post: delete item
      */
 
 
@@ -57,17 +58,22 @@ public class AdminProductController {
         return new ModelAndView("redirect:/price/api/product/admin/");
     }
 
-    @RequestMapping(path = "/admin/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/admin/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@Valid @NotNull final @PathVariable long id) {
-        ModelAndView model = new ModelAndView();
-        model.addObject("product", repository.findById(id));
-        model.setViewName("edit");
-        return model;
+        return new ModelAndView("edit", "product", repository.findById(id));
     }
 
 
-    @RequestMapping(path = "/admin/{id}", method = RequestMethod.POST)
-    public ModelAndView editPost(@Valid Product product) {
+    @RequestMapping(path = "/admin/edit/{id}", method = RequestMethod.POST)
+    public ModelAndView editPost(@Valid @ModelAttribute("product")Product product,
+                                 BindingResult bindingResult,
+                                 @RequestParam("id") long id
+                                 /*@RequestParam("name") String name*/) {
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("redirect:/price/api/product/admin/edit/" + id);
+        }
+
         repository.save(product);
         return new ModelAndView("redirect:/price/api/product/admin/");
     }

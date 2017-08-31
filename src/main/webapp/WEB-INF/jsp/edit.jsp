@@ -9,19 +9,18 @@
 </head>
 <body>
 
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-    <form:form method="POST" action="/price/api/product/admin/${product.id}" modelAttribute="product">
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+    <form:form method="POST" action="/price/api/product/admin/edit/${product.id}" modelAttribute="product">
          <table>
-            <tr>
-                <div class="form-group">
-                    <td><form:input type="hidden" path="id" lass="form-control"/></td>
-
-                    <form:label path="name">Name</form:label>
-                    <td><form:input path="name" lass="form-control"/></td>
-                </div>
+            <tr class="form-group">
+                    <td><form:label path="name">Name</form:label></td>
+                    <td><form:input path="name" class="form-control"/></td>
             </tr>
             <tr>
-                <td><input type="submit" value="Submit" class="btn btn-primary" /></td>
+                <td>
+                    <form:input type="hidden" path="id" class="form-control"/>
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </td>
             </tr>
         </table>
     </form:form>

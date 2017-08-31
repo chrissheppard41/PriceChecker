@@ -58,8 +58,8 @@
                                             <c:out value="${posts.date}"/>
                                         </td>
                                         <td class="col-3">
-                                            <a href="/price/api/product/admin/${posts.id}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
-                                            <a href="#" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                            <a href="/price/api/product/admin/edit/${posts.id}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
+                                            <a href="/price/api/product/admin/delete/${posts.id}" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>Delete</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -14,7 +14,7 @@
             <tr>
                 <div class="form-group">
                     <form:label path="name">Name</form:label>
-                    <td><form:input path="name" lass="form-control"/></td>
+                    <td><form:input path="name" class="form-control"/></td>
                 </div>
             </tr>
             <tr>
