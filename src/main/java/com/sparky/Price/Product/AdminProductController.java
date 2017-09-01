@@ -67,8 +67,7 @@ public class AdminProductController {
     @RequestMapping(path = "/admin/edit/{id}", method = RequestMethod.POST)
     public ModelAndView editPost(@Valid @ModelAttribute("product")Product product,
                                  BindingResult bindingResult,
-                                 @RequestParam("id") long id
-                                 /*@RequestParam("name") String name*/) {
+                                 @RequestParam("id") long id) {
 
         if (bindingResult.hasErrors()) {
             return new ModelAndView("redirect:/price/api/product/admin/edit/" + id);
