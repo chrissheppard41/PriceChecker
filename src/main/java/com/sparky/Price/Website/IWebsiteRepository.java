@@ -15,6 +15,8 @@ public interface IWebsiteRepository extends CrudRepository<Website, Long> {
 
     Website findByName(String name);
 
+    Website findById(long id);
+
     List<Website> findAll();
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+    <div layout:fragment="content">
+        <h1>Add product</h1>
+        <form action="#"
+              th:action="@{/price/api/product/admin/add}"
+              th:object="${product}"
+              method="post">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" th:field="*{name}" />
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Activate:</td>
+                    <td><input type="checkbox" th:field="*{activate}" /></td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

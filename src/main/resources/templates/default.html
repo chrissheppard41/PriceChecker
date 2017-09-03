@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/price/api/css/bootstrap.min.css" th:href="@{/price/api/css/bootstrap.min.css}"/>
+    <title>Compare Admin Form</title>
+</head>
+<body>
+    <div class="container">
+
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Price</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="/price/api/product/admin/">Product</a></li>
+                <li><a href="/price/api/website/admin/">Website</a></li>
+                <li><a href="/price/api/target/admin/">Target</a></li>
+            </ul>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-12" layout:fragment="content">
+                Page content goes here
+            </div>
+        </div>
+    </div>
+    <script src="/price/api/js/bootstrap.min.js"></script>
+</body>
+</html>

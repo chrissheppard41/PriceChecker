@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+    <div layout:fragment="content">
+        <div class="col-md-12">
+            <h1>Edit website</h1>
+        </div>
+        <form class="col-md-12"
+              action="#"
+              th:action="@{/price/api/website/admin/edit/*{id}(id=${website.id})}"
+              th:object="${website}"
+              method="post">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" th:field="*{name}" /><br />
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Product:</td>
+                    <td>
+                        <select th:field="*{product}" class="form-control">
+                            <option th:each="prod: ${productList}" th:value="${prod.id}" th:text="${prod.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Url:</td>
+                    <td>
+                        <input type="text" th:field="*{url}" /><br />
+                        <span th:if="${#fields.hasErrors('url')}" th:errors="*{url}">Url error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Target name:</td>
+                    <td>
+                        <input type="text" th:field="*{targetName}" /><br />
+                        <span th:if="${#fields.hasErrors('targetName')}" th:errors="*{targetName}">Target name error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

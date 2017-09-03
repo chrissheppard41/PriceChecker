@@ -1,15 +1,9 @@
 package com.sparky.Price.Website.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Product.model.Product;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -25,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Table(name = "website")
 @Getter
+@Setter
 public class Website {
 
     @Id
@@ -34,9 +29,9 @@ public class Website {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private @NotNull Product product;
-    private @NotEmpty @NotNull final String name;
-    private @NotEmpty @NotNull final String url;
-    private @NotEmpty @NotNull final String targetName;
+    private @NotEmpty @NotNull @NonNull String name;
+    private @NotEmpty @NotNull @NonNull String url;
+    private @NotEmpty @NotNull @NonNull String targetName;
     private LocalDateTime date = LocalDateTime.now();
 
     @JsonIgnore
