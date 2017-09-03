@@ -1,10 +1,8 @@
 package com.sparky.Price.Price.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparky.Price.Website.model.Website;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +17,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Table(name = "price")
 @Getter
+@Setter
 public class Price {
 
     @Id
@@ -28,6 +27,6 @@ public class Price {
     @ManyToOne
     @JoinColumn(name = "website_id")
     private Website website;
-    private @NotEmpty @NotNull final String price;
+    private @NotEmpty @NotNull @NonNull String price;
     private LocalDateTime date = LocalDateTime.now();
 }
