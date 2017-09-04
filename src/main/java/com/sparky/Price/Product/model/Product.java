@@ -43,9 +43,12 @@ public class Product {
         website.stream()
                 .forEach(item -> {
                     try {
+                        //@todo: check to see if this works, test this
                         Optional<Price> price = item.getHtmlPrice();
                         if(price.isPresent()) {
-                            prices.add(price.get());
+                            if(price.get().getPrice() != null) {
+                                prices.add(price.get());
+                            }
                         }
 
                     } catch (IOException e) {

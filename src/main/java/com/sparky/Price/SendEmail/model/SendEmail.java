@@ -1,11 +1,8 @@
 package com.sparky.Price.SendEmail.model;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.*;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,13 +16,14 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Table(name = "email")
 @Getter
+@Setter
 public class SendEmail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    private @NotEmpty @NotNull final String name;
-    private @NotEmpty @NotNull @Email final String email;
+    private @NotEmpty @NotNull @NonNull String name;
+    private @NotEmpty @NotNull @NonNull @Email String email;
     private LocalDateTime date = LocalDateTime.now();
 }

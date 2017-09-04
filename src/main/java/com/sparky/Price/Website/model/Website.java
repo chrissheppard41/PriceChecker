@@ -65,7 +65,7 @@ public class Website {
     //todo: fix the way website gets prices
     private boolean anyChangeInPrice(String price) {
         if(priceList.size() != 0) {
-            Optional<Price> priceOptional = Optional.ofNullable(priceList.get(priceList.size()));
+            Optional<Price> priceOptional = Optional.ofNullable(priceList.get(priceList.size() - 1));
             return priceOptional.map(price1 -> !Objects.equals(price1.getPrice(), price)).orElse(true);
         }
 

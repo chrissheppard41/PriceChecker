@@ -1,6 +1,5 @@
 package com.sparky.Price.SendEmail;
 
-import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.SendEmail.model.SendEmail;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,7 +12,9 @@ import java.util.List;
  */
 public interface ISendEmailRepository extends CrudRepository<SendEmail, Long> {
 
-    Price findByEmail(String email);
+    SendEmail findByEmail(String email);
+
+    SendEmail findById(long id);
 
     List<SendEmail> findAll();
 

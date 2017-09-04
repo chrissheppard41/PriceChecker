@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,19 +31,15 @@ public class CompareController {
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String get() throws Exception {
-
         List<Product> products = productRepository.findAll();
-        List<Price> retrievedPrices = new ArrayList<>();
         products.stream()
-                .filter(item -> item.isActivate() == true)
+                .filter(Product::isActivate)
                 .forEach(item -> {
-                    item.retrieveWebsitePrices();
+                    List<Price> retrievedPrices = item.retrieveWebsitePrices();
+                    if(retrievedPrices.size() != 0) {
+                        priceRepository.save(retrievedPrices);
+                    }
                 });
-
-        if(retrievedPrices.size() != 0) {
-            priceRepository.save(retrievedPrices);
-        }
-
         return "";
     }
 }

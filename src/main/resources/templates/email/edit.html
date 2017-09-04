@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="default">
+<body>
+    <div layout:fragment="content">
+        <div class="col-md-12">
+            <h1>Edit email</h1>
+        </div>
+        <form class="col-md-12"
+              action="#"
+              th:action="@{/price/api/sendEmail/admin/edit/*{id}(id=${SendEmail.id})}"
+              th:object="${SendEmail}"
+              method="post">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" th:field="*{name}" />
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>
+                        <input type="text" th:field="*{email}" />
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error message</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="submit" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
