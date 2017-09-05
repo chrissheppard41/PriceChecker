@@ -100,28 +100,31 @@ public class Website {
                 "</tr>\n";
     }
 
+    private Float currentPrice = -1.00f;
+    private Float highestPrice = -1.00f;
+    private Float lowestPrice = -1.00f;
+
     //todo: get the prices together in 1 method, then we can compare
     private void setPriceValues() {
-
-    }
-
-    private String getCurrentPrice() {
-        String price = "Not set";
         if(priceList.size() != 0) {
-            price = "£" + priceList.get(priceList.size() - 1).getPrice();
+            currentPrice = Float.parseFloat(priceList.get(priceList.size() - 1).getPrice());
+
+
+            priceList.stream()
+                    .forEach(item -> {
+                        Float cost = Float.parseFloat(item.getPrice());
+
+                        if(highestPrice == -1.0f || highestPrice < cost) {
+                            highestPrice = cost;
+                        }
+
+                        if(lowestPrice == -1.0f || lowestPrice < cost) {
+                            lowestPrice = cost;
+                        }
+
+                    });
         }
 
-        return price;
-    }
-
-    private String getHighestPrice() {
-        String price = "Not set";
-        return price;
-    }
-
-    private String getLowestPrice() {
-        String price = "Not set";
-        return price;
     }
 
 }
