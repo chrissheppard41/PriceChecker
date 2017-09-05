@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class CompareController {
     private SmtpMailSender smtpMailSender;
 
     //todo: Take a look at this code, see if you can clean up the way it gets the price
-
+    //todo: Stop possible memory leaking
     @RequestMapping(path = "/", method = RequestMethod.GET)
     @Scheduled(cron = "0 0 9 * * *")
     public String get() throws Exception {
@@ -55,7 +56,13 @@ public class CompareController {
     @RequestMapping(path = "/sendData/", method = RequestMethod.GET)
     @Scheduled(cron = "0 30 9 * * *")
     public String sendData() {
-
+        List<Product> products = productRepository.findAll();
+        //https://html-online.com/editor/
+        try {
+            smtpMailSender.send("Hello world content", "Subject", new String[]{"test@test.com"});
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
         return "";
     }
 }
