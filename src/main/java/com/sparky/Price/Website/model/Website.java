@@ -87,4 +87,41 @@ public class Website {
 
         return output;
     }
+
+
+
+
+
+    public String toHtml() {
+        return "<td>" + name + "</td>\n" +
+                "<td>" + this.getCurrentPrice() + "</td>\n" +
+                "<td>" + this.getHighestPrice() + "</td>\n" +
+                "<td>" + this.getLowestPrice() + "</td>\n" +
+                "</tr>\n";
+    }
+
+    //todo: get the prices together in 1 method, then we can compare
+    private void setPriceValues() {
+
+    }
+
+    private String getCurrentPrice() {
+        String price = "Not set";
+        if(priceList.size() != 0) {
+            price = "£" + priceList.get(priceList.size() - 1).getPrice();
+        }
+
+        return price;
+    }
+
+    private String getHighestPrice() {
+        String price = "Not set";
+        return price;
+    }
+
+    private String getLowestPrice() {
+        String price = "Not set";
+        return price;
+    }
+
 }

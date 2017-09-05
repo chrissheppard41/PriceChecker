@@ -1,5 +1,6 @@
 package com.sparky.Price.Compare;
 
+import com.sparky.Price.Compare.model.Compare;
 import com.sparky.Price.Price.IPriceRepository;
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Product.IProductRepository;
@@ -56,10 +57,12 @@ public class CompareController {
     @RequestMapping(path = "/sendData/", method = RequestMethod.GET)
     @Scheduled(cron = "0 30 9 * * *")
     public String sendData() {
+        Compare c = new Compare();
         List<Product> products = productRepository.findAll();
         //https://html-online.com/editor/
+        //https://www.thoughtco.com/how-to-send-html-email-3468764
         try {
-            smtpMailSender.send("Hello world content", "Subject", new String[]{"test@test.com"});
+            smtpMailSender.send(c.formatEmail(products), "Daily product report", new String[]{"cshepoth+daily@gmail.com"});
         } catch (MessagingException e) {
             e.printStackTrace();
         }

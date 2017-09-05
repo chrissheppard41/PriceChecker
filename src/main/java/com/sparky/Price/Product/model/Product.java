@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by chrissheppard on 23/08/2017.
@@ -58,4 +59,22 @@ public class Product {
 
         return prices;
     }
+
+
+
+    public String toHtml() {
+        String output = "";
+
+        int row_span = (website.size() == 0)?1:website.size();
+        output += "<tr>\n" +
+                "<td rowspan=\"" + row_span + "\">" + this.name + "</td>\n";
+
+        output += website.stream()
+                .map(Website::toHtml)
+                .collect(Collectors.joining(" "));
+        output += "</tr>";
+
+        return output;
+    }
+
 }
