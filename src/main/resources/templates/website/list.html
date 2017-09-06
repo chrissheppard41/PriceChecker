@@ -14,8 +14,7 @@
             <tr class="row">
                 <th class="col-2">Product</th>
                 <th class="col-1">Name</th>
-                <th class="col-4">Url</th>
-                <th class="col-1">Target name</th>
+                <th class="col-5">Url</th>
                 <th class="col-2">Modified</th>
                 <th class="col-2">Options</th>
             </tr>
@@ -23,8 +22,8 @@
             <tbody>
             <tr class="row" th:each="posts : ${posts}" >
                 <td class="col-2" th:text="${posts.product.name}"></td>
-                <td class="col-1" th:text="${posts.name}"></td>
-                <td class="col-4" th:text="${posts.url}"></td>
+                <td class="col-1" th:text="${posts.provider.name}"></td>
+                <td class="col-5" th:text="${posts.url}"></td>
                 <td class="col-1" th:text="${posts.targetName}"></td>
                 <td class="col-2" th:text="${posts.date}"></td>
                 <td class="col-2">

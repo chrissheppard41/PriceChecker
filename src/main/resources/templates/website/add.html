@@ -12,10 +12,11 @@
               method="post">
             <table>
                 <tr>
-                    <td>Name:</td>
+                    <td>Provider:</td>
                     <td>
-                        <input type="text" th:field="*{name}" /><br />
-                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error message</span>
+                        <select th:field="*{provider}" class="form-control">
+                            <option th:each="prod: ${providerList}" th:value="${prov.id}" th:text="${prov.name}"></option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
@@ -31,13 +32,6 @@
                     <td>
                         <input type="text" th:field="*{url}" /><br />
                         <span th:if="${#fields.hasErrors('url')}" th:errors="*{url}">Url error message</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Target name:</td>
-                    <td>
-                        <input type="text" th:field="*{targetName}" /><br />
-                        <span th:if="${#fields.hasErrors('targetName')}" th:errors="*{targetName}">Target name error message</span>
                     </td>
                 </tr>
                 <tr>

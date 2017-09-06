@@ -1,6 +1,7 @@
 package com.sparky.Price.Website;
 
 import com.sparky.Price.Product.IProductRepository;
+import com.sparky.Price.Provider.IProviderRepository;
 import com.sparky.Price.Website.model.Website;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,8 @@ public class AdminWebsiteController {
     private IWebsiteRepository repository;
     @Autowired
     private IProductRepository productRepository;
+    @Autowired
+    private IProviderRepository providerRepository;
 
     @RequestMapping(path = "/admin/", method = RequestMethod.GET)
     public String get(Model model) {
@@ -30,6 +33,7 @@ public class AdminWebsiteController {
     public String add(Model model) {
         model.addAttribute("website", new Website());
         model.addAttribute("productList", productRepository.findAll());
+        model.addAttribute("providerList", providerRepository.findAll());
         return "website/add";
     }
 
@@ -49,6 +53,7 @@ public class AdminWebsiteController {
         modelAndView.setViewName("website/edit");
         modelAndView.addObject("website", repository.findById(id));
         modelAndView.addObject("productList", productRepository.findAll());
+        modelAndView.addObject("providerList", providerRepository.findAll());
         return modelAndView;
     }
 

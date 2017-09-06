@@ -39,6 +39,10 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH)
     private List<Website> website;
 
+
+
+
+
     public List<Price> retrieveWebsitePrices() {
         List<Price> prices = new ArrayList<>();
         website.stream()

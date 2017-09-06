@@ -27,6 +27,6 @@ public class Price {
     @ManyToOne
     @JoinColumn(name = "website_id")
     private Website website;
-    private @NotEmpty @NotNull @NonNull String price;
+    private @NotNull @NonNull Float price;
     private LocalDateTime date = LocalDateTime.now();
 }

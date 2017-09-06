@@ -25,5 +25,6 @@ public class SendEmail {
 
     private @NotEmpty @NotNull @NonNull String name;
     private @NotEmpty @NotNull @NonNull @Email String email;
+    private @NonNull boolean activate = false;
     private LocalDateTime date = LocalDateTime.now();
 }

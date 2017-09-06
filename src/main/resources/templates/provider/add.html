@@ -5,13 +5,10 @@
       layout:decorator="default">
 <body>
     <div layout:fragment="content">
-        <div class="col-md-12">
-            <h1>Edit email</h1>
-        </div>
-        <form class="col-md-12"
-              action="#"
-              th:action="@{/price/api/sendEmail/admin/edit/*{id}(id=${SendEmail.id})}"
-              th:object="${SendEmail}"
+        <h1>Add provider</h1>
+        <form action="#"
+              th:action="@{/price/api/provider/admin/add}"
+              th:object="${provider}"
               method="post">
             <table>
                 <tr>
@@ -22,19 +19,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Email:</td>
+                    <td>Target name:</td>
                     <td>
-                        <input type="text" th:field="*{email}" />
-                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error message</span>
+                        <input type="text" th:field="*{targetName}" /><br />
+                        <span th:if="${#fields.hasErrors('targetName')}" th:errors="*{targetName}">Target name error message</span>
                     </td>
                 </tr>
                 <tr>
-                    <td>Activate:</td>
-                    <td><input type="checkbox" th:field="*{activate}" /></td>
-                </tr>
-                <tr>
                     <td>
-                        <input type="hidden" th:field="*{id}" />
                         <input type="submit" value="Submit" />
                     </td>
                 </tr>

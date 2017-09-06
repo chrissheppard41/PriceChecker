@@ -5,6 +5,7 @@ import com.sparky.Price.Price.IPriceRepository;
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Product.IProductRepository;
 import com.sparky.Price.Product.model.Product;
+import com.sparky.Price.SendEmail.ISendEmailRepository;
 import com.sparky.Price.SendEmail.model.SmtpMailSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +34,15 @@ public class CompareController {
     @Autowired
     IPriceRepository priceRepository;
 
+    @Autowired
+    ISendEmailRepository sendEmailRepository;
+
 
     @Autowired
     private SmtpMailSender smtpMailSender;
 
     //todo: Take a look at this code, see if you can clean up the way it gets the price
+    //todo: Add provider to the list, use that to set the name of the provider and the class to effect, assign it to the website code
     //todo: Stop possible memory leaking
     @RequestMapping(path = "/", method = RequestMethod.GET)
     @Scheduled(cron = "0 0 9 * * *")
@@ -59,13 +64,13 @@ public class CompareController {
     public String sendData() {
         Compare c = new Compare();
         List<Product> products = productRepository.findAll();
-        //https://html-online.com/editor/
-        //https://www.thoughtco.com/how-to-send-html-email-3468764
-        try {
+        System.out.println(sendEmailRepository.findAllByActivate(true).get(0).getEmail());
+
+        /*try {
             smtpMailSender.send(c.formatEmail(products), "Daily product report", new String[]{"cshepoth+daily@gmail.com"});
         } catch (MessagingException e) {
             e.printStackTrace();
-        }
-        return "";
+        }*/
+        return c.formatEmail(products);
     }
 }

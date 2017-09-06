@@ -18,4 +18,6 @@ public interface ISendEmailRepository extends CrudRepository<SendEmail, Long> {
 
     List<SendEmail> findAll();
 
+    List<SendEmail> findAllByActivate(boolean activate);
+
 }
