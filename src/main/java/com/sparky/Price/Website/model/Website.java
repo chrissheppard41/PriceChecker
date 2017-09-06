@@ -44,6 +44,9 @@ public class Website {
     @OneToMany(mappedBy = "website", cascade = CascadeType.DETACH)
     private List<Price> priceList;
 
+    private Float currentPrice;
+    private Float highestPrice;
+    private Float lowestPrice;
 
 
     public Optional<Price> getHtmlPrice() throws IOException {
@@ -93,6 +96,7 @@ public class Website {
 
 
     public String toHtml() {
+        this.setPriceValues();
         return "<td>" + name + "</td>\n" +
                 "<td>" + this.getCurrentPrice() + "</td>\n" +
                 "<td>" + this.getHighestPrice() + "</td>\n" +
@@ -100,25 +104,20 @@ public class Website {
                 "</tr>\n";
     }
 
-    private Float currentPrice = -1.00f;
-    private Float highestPrice = -1.00f;
-    private Float lowestPrice = -1.00f;
-
-    //todo: get the prices together in 1 method, then we can compare
+    //todo: if the price deviates any, highlight that red or green
     private void setPriceValues() {
         if(priceList.size() != 0) {
             currentPrice = Float.parseFloat(priceList.get(priceList.size() - 1).getPrice());
-
 
             priceList.stream()
                     .forEach(item -> {
                         Float cost = Float.parseFloat(item.getPrice());
 
-                        if(highestPrice == -1.0f || highestPrice < cost) {
+                        if(highestPrice == null || highestPrice < cost) {
                             highestPrice = cost;
                         }
 
-                        if(lowestPrice == -1.0f || lowestPrice < cost) {
+                        if(lowestPrice == null || lowestPrice < cost) {
                             lowestPrice = cost;
                         }
 
