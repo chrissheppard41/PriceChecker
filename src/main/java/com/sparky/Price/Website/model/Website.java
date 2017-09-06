@@ -6,6 +6,8 @@ import com.sparky.Price.Product.model.Product;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -54,7 +56,6 @@ public class Website {
         return Optional.ofNullable(this.setPrice());
     }
 
-    //todo: take a look at looking for more dominate values, so if a item is on sale, return that price, or display the backup: elementid|elementclass2|elementOther ... maybe it's own class to handle this
     private Price setPrice() throws IOException {
         String websitePrice = this.getPrice(this.getHtmlElement());
         Price p = new Price();
@@ -78,7 +79,17 @@ public class Website {
     }
 
     private String getHtmlElement() throws IOException {
-        return Jsoup.connect(url).get().select(targetName).first().text();
+        String elementText = "";
+        Document doc = Jsoup.connect(url).get();
+
+        for(String searchFor : targetName.split(",")) {
+            Elements element = doc.select(searchFor);
+            if(element != null) {
+                elementText = element.first().text();
+                break;
+            }
+        }
+        return elementText;
     }
 
     private String getPrice(String input) {
@@ -115,34 +126,31 @@ public class Website {
                 priceColour = getPriceColour(Float.parseFloat(priceList.get(priceList.size() - 2).getPrice()));
             }
 
-            priceList.stream()
-                    .forEach(item -> {
-                        Float cost = Float.parseFloat(item.getPrice());
+            priceList.forEach(item -> {
+                Float cost = Float.parseFloat(item.getPrice());
 
-                        if(highestPrice == null || highestPrice < cost) {
-                            highestPrice = cost;
-                        }
+                if(highestPrice == null || highestPrice < cost) {
+                    highestPrice = cost;
+                }
 
-                        if(lowestPrice == null || lowestPrice < cost) {
-                            lowestPrice = cost;
-                        }
+                if(lowestPrice == null || lowestPrice < cost) {
+                    lowestPrice = cost;
+                }
 
-                    });
+            });
         }
 
     }
 
+    /**
+     * if the price has more than one, we can do checks on the previous price
+     * if the previous item to the current price is less than
+     * if not then the price is higher because we don't store the same price twice
+     * @param prevPrice f
+     * @return String
+     */
     private String getPriceColour(Float prevPrice) {
-        String colour = "#000000";
-        //if the price has more than one, we can do checks on the previous price
-        if(prevPrice < currentPrice) {
-            //if the previous item to the current price is less than
-            colour = "1a8800";
-        } else {
-            //if not then the price is higher because we don't store the same price twice
-            colour = "#880000";
-        }
-        return colour;
+        return (prevPrice < currentPrice)?"1a8800":"#880000";
     }
 
 }
