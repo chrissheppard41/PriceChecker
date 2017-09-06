@@ -19,17 +19,18 @@ public class Compare {
         output += "<p>The current price trends for the following products:</p>\n" +
                 "<table width=\"100%\">\n" +
                 "<thead>\n" +
-                "<tr style=\"text-align: left;\">\n" +
-                "<th>Product</th>\n" +
-                "<th>Website</th>\n" +
-                "<th style=\"width: 75px;\">Current Price</th>\n" +
-                "<th style=\"width: 75px;\">Lowest Price</th>\n" +
-                "<th style=\"width: 75px;\">Highest Price</th>\n" +
+                "<tr>\n" +
+                "<th style=\"text-align: left;\">Product</th>\n" +
+                "<th style=\"text-align: left;\">Website</th>\n" +
+                "<th style=\"width: 75px;text-align: left;\">Current Price</th>\n" +
+                "<th style=\"width: 75px;text-align: left;\">Lowest Price</th>\n" +
+                "<th style=\"width: 75px;text-align: left;\">Highest Price</th>\n" +
                 "</tr>\n" +
                 "</thead>\n" +
                 "<tbody>\n";
 
         output += emailData.stream()
+                .filter(Product::isActivate)
                 .map(Product::toHtml)
                 .collect(Collectors.joining(" "));
 
