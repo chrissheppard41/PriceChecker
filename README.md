@@ -11,3 +11,4 @@ This will email daily (maybe in the future will email when there is a change in 
 * Email only when there is a price difference
 * Secure the backend admin section with a login
 * A page within the admin section that shows the price differences, nice graphs etc
+* Convert all to pound if any of the prices are in euro

@@ -78,7 +78,7 @@ public class Website {
     }
 
 
-
+    //todo: enclude the currency type in the request
     public String toHtml() {
         PriceValue priceValue = new PriceValue(priceList);
         return "<td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
