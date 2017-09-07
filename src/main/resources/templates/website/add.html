@@ -15,7 +15,7 @@
                     <td>Provider:</td>
                     <td>
                         <select th:field="*{provider}" class="form-control">
-                            <option th:each="prod: ${providerList}" th:value="${prov.id}" th:text="${prov.name}"></option>
+                            <option th:each="prov: ${providerList}" th:value="${prov.id}" th:text="${prov.name}"></option>
                         </select>
                     </td>
                 </tr>
