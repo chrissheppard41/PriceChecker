@@ -41,6 +41,9 @@ public class Provider {
     private @NotEmpty @NotNull @NonNull String targetName;
     private LocalDateTime date = LocalDateTime.now();
 
+    @Transient
+    private String currency = "£";
+
     @JsonIgnore
     @OneToMany(mappedBy = "provider", cascade = CascadeType.DETACH)
     private List<Website> website;
@@ -84,7 +87,8 @@ public class Provider {
 
     private Float getElementBestPrice(String input) {
         Float output = 0f;
-
+//todo: update this to capture the currency
+//todo: test this with a high price type
         Pattern pattern = Pattern.compile("\\d{1,3}[,\\.]?(\\d{1,2})?");
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
