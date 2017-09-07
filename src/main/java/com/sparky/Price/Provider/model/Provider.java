@@ -41,7 +41,6 @@ public class Provider {
     private @NotEmpty @NotNull @NonNull String targetName;
     private LocalDateTime date = LocalDateTime.now();
 
-    //@todo: Take a look at stopping the stackoverflow issue by only returning itself :: https://stackoverflow.com/questions/37362676/spring-boot-onetomany-with-jpa
     @JsonIgnore
     @OneToMany(mappedBy = "provider", cascade = CascadeType.DETACH)
     private List<Website> website;

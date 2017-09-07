@@ -41,9 +41,6 @@ public class CompareController {
     @Autowired
     private SmtpMailSender smtpMailSender;
 
-    //todo: Take a look at this code, see if you can clean up the way it gets the price
-    //todo: Add provider to the list, use that to set the name of the provider and the class to effect, assign it to the website code
-    //todo: Stop possible memory leaking
     @RequestMapping(path = "/", method = RequestMethod.GET)
     @Scheduled(cron = "0 0 9 * * *")
     public String get() throws Exception {

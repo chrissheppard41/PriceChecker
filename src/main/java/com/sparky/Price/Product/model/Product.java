@@ -34,7 +34,6 @@ public class Product {
     private @NonNull boolean activate = false;
     private LocalDateTime date = LocalDateTime.now();
 
-    //@todo: Take a look at stopping the stackoverflow issue by only returning itself :: https://stackoverflow.com/questions/37362676/spring-boot-onetomany-with-jpa
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH)
     private List<Website> website;
@@ -48,7 +47,6 @@ public class Product {
         website.stream()
                 .forEach(item -> {
                     try {
-                        //@todo: check to see if this works, test this
                         Optional<Price> price = item.getHtmlPrice();
                         if(price.isPresent()) {
                             if(price.get().getPrice() != null) {
