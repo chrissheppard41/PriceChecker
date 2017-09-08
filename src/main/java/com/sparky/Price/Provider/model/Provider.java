@@ -1,7 +1,6 @@
 package com.sparky.Price.Provider.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Website.model.Website;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,10 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -50,12 +46,9 @@ public class Provider {
 
 
 
-
     private String[] getTargetNames() {
         return targetName.split(",");
     }
-
-
 
     public Float getBestWebsitePrice(String url) throws IOException {
         List<Float> listOfPrices = this.getAllPrices(Jsoup.connect(url).get());
@@ -85,16 +78,25 @@ public class Provider {
         return elementText;
     }
 
+
+    //todo: remove this
+    public Float test(String input) {
+        return this.getElementBestPrice(input);
+    }
+
     private Float getElementBestPrice(String input) {
         Float output = 0f;
-//todo: update this to capture the currency
-//todo: test this with a high price type
-        Pattern pattern = Pattern.compile("\\d{1,3}[,\\.]?(\\d{1,2})?");
+
+        input = input.replaceAll(",", "");
+        Pattern pattern = Pattern.compile("([$£€]?)(\\d{1,7}[,\\.]?(\\d{1,2})?)");
         Matcher matcher = pattern.matcher(input);
         while (matcher.find()) {
-            Float value = Float.parseFloat(matcher.group(0));
+            Float value = Float.parseFloat(matcher.group(2));
 
             if(output == 0f || output > value) {
+                if(!matcher.group(1).isEmpty()) {
+                    currency = matcher.group(1);
+                }
                 output = value;
             }
         }
