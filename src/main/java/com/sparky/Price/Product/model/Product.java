@@ -66,14 +66,14 @@ public class Product {
     public String toHtml() {
         String output = "";
 
-        int row_span = (website.size() == 0)?1:website.size();
+        int row_span = (website.size() == 0)?2:website.size() + 1;
         output += "<tr>\n" +
                 "<td rowspan=\"" + row_span + "\">" + this.name + "</td>\n";
+        output += "</tr>";
 
         output += website.stream()
                 .map(Website::toHtml)
                 .collect(Collectors.joining(" "));
-        output += "</tr>";
 
         return output;
     }

@@ -78,10 +78,9 @@ public class Website {
     }
 
 
-    //todo: enclude the currency type in the request
     public String toHtml() {
         PriceValue priceValue = new PriceValue(priceList);
-        return "<td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
+        return "<tr><td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
                 "<td style=\"color: " + priceValue.getPriceColour() + "\">" + provider.getCurrency() + priceValue.getCurrentPrice() + "</td>\n" +
                 "<td>" + provider.getCurrency() + priceValue.getLowestPrice() + "</td>\n" +
                 "<td>" + provider.getCurrency() + priceValue.getHighestPrice() + "</td>\n" +

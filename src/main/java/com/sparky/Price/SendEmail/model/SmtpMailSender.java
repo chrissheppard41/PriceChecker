@@ -56,7 +56,7 @@ public class SmtpMailSender {
 
         helper = new MimeMessageHelper(message, true); // true indicates
         // multipart message
-        helper.setFrom("cshepoth@gmail.com");
+        helper.setFrom("cshepoth+report@gmail.com");
         helper.setSubject(subject);
         helper.setTo(sendTo);
         helper.setText(content, true); // true indicates html
