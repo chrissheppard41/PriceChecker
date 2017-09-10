@@ -1,0 +1,14 @@
+.charts {
+    width: 100%;
+}
+
+
+.charts .key {
+    width: 20%;
+    border: 1px solid #999999;
+    padding: 10px;
+}
+
+.charts .key h4 {
+    font-size: 16px;
+}

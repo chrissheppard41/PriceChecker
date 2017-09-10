@@ -36,6 +36,7 @@ public class Provider {
     private @NotEmpty @NotNull @NonNull String name;
     private @NotEmpty @NotNull @NonNull String targetName;
     private LocalDateTime date = LocalDateTime.now();
+    private String colour;
 
     @Transient
     private String currency = "£";
@@ -76,12 +77,6 @@ public class Provider {
         }
 
         return elementText;
-    }
-
-
-    //todo: remove this
-    public Float test(String input) {
-        return this.getElementBestPrice(input);
     }
 
     private Float getElementBestPrice(String input) {

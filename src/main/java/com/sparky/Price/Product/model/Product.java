@@ -34,7 +34,6 @@ public class Product {
     private @NonNull boolean activate = false;
     private LocalDateTime date = LocalDateTime.now();
 
-    @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH)
     private List<Website> website;
 

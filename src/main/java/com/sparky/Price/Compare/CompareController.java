@@ -5,8 +5,8 @@ import com.sparky.Price.Price.IPriceRepository;
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Product.IProductRepository;
 import com.sparky.Price.Product.model.Product;
-import com.sparky.Price.Provider.model.Provider;
 import com.sparky.Price.SendEmail.ISendEmailRepository;
+import com.sparky.Price.SendEmail.model.SendEmail;
 import com.sparky.Price.SendEmail.model.SmtpMailSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 /**
@@ -61,24 +62,20 @@ public class CompareController {
     public String sendData() {
         Compare c = new Compare();
         List<Product> products = productRepository.findAll();
-        System.out.println(sendEmailRepository.findAllByActivate(true).get(0).getEmail());
+        List<SendEmail> contactList = sendEmailRepository.findAllByActivate(true);
+        String emailBody = "";
+        try {
+            emailBody = c.formatEmail(products);
 
-        /*try {
-            smtpMailSender.send(c.formatEmail(products), "Daily product report", new String[]{"cshepoth+daily@gmail.com"});
+            smtpMailSender.preSend(emailBody, "Daily product report", contactList);
         } catch (MessagingException e) {
-            e.printStackTrace();
-        }*/
-        return c.formatEmail(products);
+            log.error("Unable to send email :: " + e.toString());
+            c.sendErrorMail(smtpMailSender, log);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            log.error("List is empty :: " + e.toString());
+            c.sendErrorMail(smtpMailSender, log);
+        }
+        return emailBody;
     }
 
-    @RequestMapping(path = "/test/", method = RequestMethod.GET)
-    public String test() {
-
-        Provider t = new Provider();
-
-        Float price = t.test("dafadfasdf a $33.99 adadada $11.99 asdasda a asdsa 11.99");
-        //todo: other currency checks https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22EURGBP%22)&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=
-        System.out.println(t.getCurrency() + "" +price);
-        return t.getCurrency() + "" +price.toString();
-    }
 }

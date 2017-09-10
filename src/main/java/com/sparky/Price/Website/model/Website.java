@@ -37,6 +37,7 @@ public class Website {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private @NotNull Product product;
@@ -47,7 +48,6 @@ public class Website {
     private LocalDateTime date = LocalDateTime.now();
 
 
-    @JsonIgnore
     @OneToMany(mappedBy = "website", cascade = CascadeType.DETACH)
     private List<Price> priceList;
 
@@ -82,9 +82,9 @@ public class Website {
     public String toHtml() {
         PriceValue priceValue = new PriceValue(priceList);
         return "<td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
-                "<td style=\"color: " + priceValue.getPriceColour() + "\">" + priceValue.getCurrentPrice() + "</td>\n" +
-                "<td>" + priceValue.getLowestPrice() + "</td>\n" +
-                "<td>" + priceValue.getHighestPrice() + "</td>\n" +
+                "<td style=\"color: " + priceValue.getPriceColour() + "\">" + provider.getCurrency() + priceValue.getCurrentPrice() + "</td>\n" +
+                "<td>" + provider.getCurrency() + priceValue.getLowestPrice() + "</td>\n" +
+                "<td>" + provider.getCurrency() + priceValue.getHighestPrice() + "</td>\n" +
                 "</tr>\n";
     }
 

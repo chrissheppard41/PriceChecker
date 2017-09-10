@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 
 /**
  * SmtpMailSender
@@ -22,6 +23,26 @@ public class SmtpMailSender {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    public void preSend(String content, String subject, List<SendEmail> sendTo) throws MessagingException {
+        if(sendTo.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("List is Empty, therefore unable to send to anybody");
+        }
+
+        String[] sendToPeople = sendTo.stream()
+                .map(SendEmail::getEmail)
+                .toArray(String[]::new);
+
+        this.send(content, subject, sendToPeople);
+    }
+
+    public void preSend(String content, String subject, String[] sendTo) throws MessagingException {
+        if(sendTo.length == 0) {
+            throw new ArrayIndexOutOfBoundsException("Array is Empty, therefore unable to send to anybody");
+        }
+
+        this.send(content, subject, sendTo);
+    }
+
     /**
      * The send method takes consumes the method arguements to format and send an email
      * @param content The body of the email
@@ -29,19 +50,19 @@ public class SmtpMailSender {
      * @param sendTo send to these emails address
      * @throws MessagingException throws messagingException if format violation
      */
-    public void send(String content, String subject, String[] sendTo) throws MessagingException {
+    private void send(String content, String subject, String[] sendTo) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
 
-
         helper = new MimeMessageHelper(message, true); // true indicates
         // multipart message
-        helper.setFrom("from@test.com");
+        helper.setFrom("cshepoth@gmail.com");
         helper.setSubject(subject);
         helper.setTo(sendTo);
         helper.setText(content, true); // true indicates html
         // continue using helper object for more functionalities like adding attachments, etc.
         javaMailSender.send(message);
+
     }
 
 }

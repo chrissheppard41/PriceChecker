@@ -1,15 +1,17 @@
 package com.sparky.Price.Compare.model;
 
 import com.sparky.Price.Product.model.Product;
+import com.sparky.Price.SendEmail.model.SmtpMailSender;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.slf4j.Logger;
 
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor(force = true)
-//@RequiredArgsConstructor
 @Getter
 @Setter
 public class Compare {
@@ -38,5 +40,13 @@ public class Compare {
                 "</table>";
 
         return output;
+    }
+
+    public void sendErrorMail(SmtpMailSender smtpMailSender, Logger log) {
+        try {
+            smtpMailSender.preSend("Mail unable to send", "Daily product report failed to send", new String[]{"cshepoth+daily@gmail.com"});
+        } catch (MessagingException e) {
+            log.error("Unable to send email :: " + e.toString());
+        }
     }
 }
