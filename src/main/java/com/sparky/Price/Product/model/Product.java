@@ -33,7 +33,7 @@ public class Product {
     private @NonNull boolean activate = false;
     private LocalDateTime date = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Website> website;
 
 
