@@ -8,6 +8,7 @@ import com.sparky.Price.Product.model.Product;
 import com.sparky.Price.SendEmail.ISendEmailRepository;
 import com.sparky.Price.SendEmail.model.SendEmail;
 import com.sparky.Price.SendEmail.model.SmtpMailSender;
+import org.hibernate.LazyInitializationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,6 +74,9 @@ public class CompareController {
             c.sendErrorMail(smtpMailSender, log);
         } catch (ArrayIndexOutOfBoundsException e) {
             log.error("List is empty :: " + e.toString());
+            c.sendErrorMail(smtpMailSender, log);
+        } catch(LazyInitializationException e) {
+            log.error("Lazy init exception :: " + e.toString());
             c.sendErrorMail(smtpMailSender, log);
         }
         return emailBody;

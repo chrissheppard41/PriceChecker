@@ -1,6 +1,5 @@
 package com.sparky.Price.Product.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Website.model.Website;
 import lombok.*;
@@ -34,7 +33,7 @@ public class Product {
     private @NonNull boolean activate = false;
     private LocalDateTime date = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<Website> website;
 
 

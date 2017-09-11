@@ -7,20 +7,14 @@ import com.sparky.Price.Product.model.Product;
 import com.sparky.Price.Provider.model.Provider;
 import lombok.*;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by chrissheppard on 20/08/2017.
@@ -48,7 +42,7 @@ public class Website {
     private LocalDateTime date = LocalDateTime.now();
 
 
-    @OneToMany(mappedBy = "website", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "website", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private List<Price> priceList;
 
 
