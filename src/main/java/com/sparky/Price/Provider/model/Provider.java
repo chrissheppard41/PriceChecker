@@ -52,13 +52,14 @@ public class Provider {
     }
 
     public Float getBestWebsitePrice(String url) throws IOException {
-        List<Float> listOfPrices = this.getAllPrices(Jsoup.connect(url).get());
+        if(url != null || url.isEmpty()) {
+            List<Float> listOfPrices = this.getAllPrices(Jsoup.connect(url).get());
 
-        if(listOfPrices.size() != 0) {
-            return listOfPrices.stream().min(Comparator.comparing(Float::floatValue)).get();
-        } else {
-            return 0f;
+            if(listOfPrices.size() != 0) {
+                return listOfPrices.stream().min(Comparator.comparing(Float::floatValue)).get();
+            }
         }
+        return 0f;
 
     }
 

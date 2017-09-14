@@ -51,12 +51,14 @@ public class Website {
     }
 
     private Price setPrice() throws IOException {
-        Float websitePrice = provider.getBestWebsitePrice(url);
         Price p = new Price();
-        if(websitePrice != 0f) {
-            if(this.anyChangeInPrice(websitePrice)) {
-                p.setPrice(websitePrice);
-                p.setWebsite(this);
+        if(provider != null) {
+            Float websitePrice = provider.getBestWebsitePrice(url);
+            if(websitePrice != 0f) {
+                if(this.anyChangeInPrice(websitePrice)) {
+                    p.setPrice(websitePrice);
+                    p.setWebsite(this);
+                }
             }
         }
         return p;
@@ -73,12 +75,16 @@ public class Website {
 
 
     public String toHtml() {
-        PriceValue priceValue = new PriceValue(priceList);
-        return "<tr><td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
-                "<td style=\"color: " + priceValue.getPriceColour() + "\">" + provider.getCurrency() + priceValue.getCurrentPrice() + "</td>\n" +
-                "<td>" + provider.getCurrency() + priceValue.getLowestPrice() + "</td>\n" +
-                "<td>" + provider.getCurrency() + priceValue.getHighestPrice() + "</td>\n" +
-                "</tr>\n";
+        String html = "";
+        if(priceList != null || provider != null) {
+            PriceValue priceValue = new PriceValue(priceList);
+            html = "<tr><td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
+                    "<td style=\"color: " + priceValue.getPriceColour() + "\">" + provider.getCurrency() + priceValue.getCurrentPrice() + "</td>\n" +
+                    "<td>" + provider.getCurrency() + priceValue.getLowestPrice() + "</td>\n" +
+                    "<td>" + provider.getCurrency() + priceValue.getHighestPrice() + "</td>\n" +
+                    "</tr>\n";
+        }
+        return html;
     }
 
 }

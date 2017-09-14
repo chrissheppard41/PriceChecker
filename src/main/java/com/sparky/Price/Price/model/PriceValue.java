@@ -17,15 +17,17 @@ public class PriceValue {
     public PriceValue(List<Price> priceList) {
 
         //get the latest price
-        if(priceList.size() != 0) {
-            currentPrice = priceList.get(priceList.size() - 1).getPrice();
-            if(priceList.size() > 1) {
-                //if the price has more than one, we can do checks on the previous price
-                priceColour = getPriceColour(priceList.get(priceList.size() - 2).getPrice());
-            }
+        if(priceList != null) {
+            if (priceList.size() != 0) {
+                currentPrice = priceList.get(priceList.size() - 1).getPrice();
+                if (priceList.size() > 1) {
+                    //if the price has more than one, we can do checks on the previous price
+                    priceColour = getPriceColour(priceList.get(priceList.size() - 2).getPrice());
+                }
 
-            highestPrice = priceList.stream().max(Comparator.comparing(Price::getPrice)).get().getPrice();
-            lowestPrice = priceList.stream().min(Comparator.comparing(Price::getPrice)).get().getPrice();
+                highestPrice = priceList.stream().max(Comparator.comparing(Price::getPrice)).get().getPrice();
+                lowestPrice = priceList.stream().min(Comparator.comparing(Price::getPrice)).get().getPrice();
+            }
         }
     }
 
