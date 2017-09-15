@@ -64,16 +64,19 @@ public class Product {
 
     public String toHtml() {
         String output = "";
-        //reorganise this method, get the website count returned, then get the row count, maybe think about outputing -1 values to hint it's broken
-        int row_span = (website.size() == 0)?2:website.size() + 1;
+
+        List<String> ceils = website.stream()
+                .filter(item -> item.getPriceList() != null)
+                .filter(item -> item.getProvider() != null)
+                .map(Website::toHtml)
+                .collect(Collectors.toList());
+
+        int row_span = (ceils.size() == 0)?1:ceils.size() + 1;
         output += "<tr>\n" +
                 "<td rowspan=\"" + row_span + "\">" + this.name + "</td>\n";
         output += "</tr>";
 
-        output += website.stream()
-                .filter(item -> item.getPriceList() != null)
-                .filter(item -> item.getProvider() != null)
-                .map(Website::toHtml)
+        output += ceils.stream()
                 .collect(Collectors.joining(" "));
 
         return output;

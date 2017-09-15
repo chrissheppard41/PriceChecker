@@ -2,6 +2,7 @@ package com.sparky.Price;
 
 import com.sparky.Price.Price.model.Price;
 import com.sparky.Price.Product.model.Product;
+import com.sparky.Price.Provider.model.Provider;
 import com.sparky.Price.Website.model.Website;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -24,6 +26,9 @@ import static org.mockito.Mockito.when;
 public class ProductTest {
     @Spy
     Product product = new Product();
+
+    @Spy
+    Provider provider = new Provider("test", "#test");
 
     /**
      * Globally set the LocalDateTime
@@ -40,6 +45,16 @@ public class ProductTest {
         when(product.getDate()).thenReturn(date);
         product.setName("Test product");
         product.setActivate(true);
+
+
+        provider.setColour("#000000");
+
+
+        try {
+            when(provider.getBestWebsitePrice("http://testurl.com")).thenReturn(10f);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         List<Website> websites = Arrays.asList(
                 new Website("https://test.com"),
@@ -61,10 +76,18 @@ public class ProductTest {
     }
     @Test
     public void ShouldReturnHtmlBasicString() throws Exception {
-        //todo: should be 1
         String html = product.toHtml();
         assertThat(html).isEqualTo("<tr>\n" +
-                "<td rowspan=\"4\">Test product</td>\n" +
+                "<td rowspan=\"1\">Test product</td>\n" +
                 "</tr>");
+    }
+    //todo: do a product type that returns some data back to make sure the HTML string is correct
+
+    @Test
+    public void ShouldReturnHtmlPopulatedString() throws Exception {
+        /*product.getWebsite().stream()
+                .forEach((item) -> item.setProvider(provider));
+        String html = product.toHtml();*/
+
     }
 }
