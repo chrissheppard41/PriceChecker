@@ -40,6 +40,6 @@ public class PriceValue {
      * @return String
      */
     private String getPriceColour(Float prevPrice) {
-        return (prevPrice > currentPrice)?"1a8800":"#880000";
+        return (prevPrice > currentPrice)?"#1a8800":"#880000";
     }
 }

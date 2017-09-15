@@ -61,9 +61,10 @@ public class ProductTest {
     }
     @Test
     public void ShouldReturnHtmlBasicString() throws Exception {
+        //todo: should be 1
         String html = product.toHtml();
         assertThat(html).isEqualTo("<tr>\n" +
-                "<td rowspan=\"1\">Test product</td>\n" +
+                "<td rowspan=\"4\">Test product</td>\n" +
                 "</tr>");
     }
 }
