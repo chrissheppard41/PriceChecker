@@ -55,7 +55,7 @@ public class CompareController {
                         priceRepository.save(retrievedPrices);
                     }
                 });
-        return "";
+        return "{\"status\": \"ok\"}";
     }
 
     @RequestMapping(path = "/sendData/", method = RequestMethod.GET)
