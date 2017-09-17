@@ -68,11 +68,11 @@ public class CompareController {
         try {
             emailBody = c.formatEmail(products);
 
-            smtpMailSender.preSend(emailBody, "Daily product report", contactList);
+        /*    smtpMailSender.preSend(emailBody, "Daily product report", contactList);
         } catch (MessagingException e) {
             log.error("Unable to send email :: " + e.toString());
             c.sendErrorMail(smtpMailSender, log);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        */} catch (ArrayIndexOutOfBoundsException e) {
             log.error("List is empty :: " + e.toString());
             c.sendErrorMail(smtpMailSender, log);
         } catch(LazyInitializationException e) {

@@ -89,11 +89,13 @@ public class Provider {
         while (matcher.find()) {
             Float value = Float.parseFloat(matcher.group(2));
 
-            if(output == 0f || output > value) {
-                if(!matcher.group(1).isEmpty()) {
-                    currency = matcher.group(1);
+            if(value != 0f) {
+                if(output == 0f || output > value) {
+                    if(!matcher.group(1).isEmpty()) {
+                        currency = matcher.group(1);
+                    }
+                    output = value;
                 }
-                output = value;
             }
         }
 

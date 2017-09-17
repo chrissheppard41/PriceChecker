@@ -12,5 +12,4 @@ public class PriceApplicationTests {
 	@Test
 	public void contextLoads() {
 	}
-
 }
