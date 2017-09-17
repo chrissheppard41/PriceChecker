@@ -78,7 +78,7 @@ public class ProductTest {
     public void ShouldReturnHtmlBasicString() throws Exception {
         String html = product.toHtml();
         assertThat(html).isEqualTo("<tr>\n" +
-                "<td rowspan=\"1\">Test product</td>\n" +
+                "<td rowspan=\"1\" style=\"border-bottom: 1px solid #000000;\">Test product</td>\n" +
                 "</tr>");
     }
     //todo: do a product type that returns some data back to make sure the HTML string is correct
