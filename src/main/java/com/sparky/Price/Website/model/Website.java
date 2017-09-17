@@ -42,7 +42,7 @@ public class Website {
     private LocalDateTime date = LocalDateTime.now();
 
 
-    @OneToMany(mappedBy = "website", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "website", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Price> priceList;
 
 
