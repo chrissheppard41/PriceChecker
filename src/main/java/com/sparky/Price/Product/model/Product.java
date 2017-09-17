@@ -73,7 +73,7 @@ public class Product {
 
         int row_span = (ceils.size() == 0)?1:ceils.size() + 1;
         output += "<tr>\n" +
-                "<td rowspan=\"" + row_span + "\">" + this.name + "</td>\n";
+                "<td rowspan=\"" + row_span + "\" style=\"border-bottom: 1px solid #000000;\">" + this.name + "</td>\n";
         output += "</tr>";
 
         output += ceils.stream()
