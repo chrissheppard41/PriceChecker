@@ -77,7 +77,7 @@ public class Website {
         String html = "";
         if(priceList != null || provider != null) {
             PriceValue priceValue = new PriceValue(priceList);
-            if(priceValue.getUpdatedToday()) {
+            if(priceValue.isUpdatedToday()) {
                 product.setSendEmail(true);
             }
             html = "<tr><td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +

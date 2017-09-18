@@ -35,10 +35,11 @@ public class Compare {
         output += emailData.stream()
                 .filter(Product::isActivate)
                 .map(item -> {
-                    if(item.getSendEmail()) {
+                    String html = item.toHtml();
+                    if(item.isSendEmail()) {
                         this.sendEmailToday = true;
                     }
-                    return item.toHtml();
+                    return html;
                 })
                 .collect(Collectors.joining(" "));
 

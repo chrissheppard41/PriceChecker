@@ -36,7 +36,8 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Website> website;
 
-    private Boolean sendEmail = false;
+    @Transient
+    private boolean sendEmail = false;
 
 
 

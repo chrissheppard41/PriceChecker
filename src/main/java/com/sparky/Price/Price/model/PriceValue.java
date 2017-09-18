@@ -14,7 +14,7 @@ public class PriceValue {
     private Float highestPrice;
     private Float lowestPrice;
     private String priceColour = "#000000";
-    private Boolean updatedToday = false;
+    private boolean updatedToday = false;
 
     public PriceValue(List<Price> priceList) {
 
