@@ -41,7 +41,6 @@ public class Website {
     private @NotEmpty @NotNull @NonNull String url;
     private LocalDateTime date = LocalDateTime.now();
 
-
     @OneToMany(mappedBy = "website", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Price> priceList;
 
@@ -78,6 +77,9 @@ public class Website {
         String html = "";
         if(priceList != null || provider != null) {
             PriceValue priceValue = new PriceValue(priceList);
+            if(priceValue.getUpdatedToday()) {
+                product.setSendEmail(true);
+            }
             html = "<tr><td><a href=\"" + url + "\">" + provider.getName() + "</a></td>\n" +
                     "<td style=\"color: " + priceValue.getPriceColour() + "\">" + provider.getCurrency() + priceValue.getCurrentPrice() + "</td>\n" +
                     "<td>" + provider.getCurrency() + priceValue.getLowestPrice() + "</td>\n" +

@@ -68,7 +68,9 @@ public class CompareController {
         try {
             emailBody = c.formatEmail(products);
 
-            smtpMailSender.preSend(emailBody, "Daily product report", contactList);
+            if(c.isSendEmailToday()) {
+                smtpMailSender.preSend(emailBody, "Daily product report", contactList);
+            }
         } catch (MessagingException e) {
             log.error("Unable to send email :: " + e.toString());
             c.sendErrorMail(smtpMailSender, log);

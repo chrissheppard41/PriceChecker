@@ -3,6 +3,7 @@ package com.sparky.Price.Price.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -13,13 +14,21 @@ public class PriceValue {
     private Float highestPrice;
     private Float lowestPrice;
     private String priceColour = "#000000";
+    private Boolean updatedToday = false;
 
     public PriceValue(List<Price> priceList) {
 
         //get the latest price
         if(priceList != null) {
             if (priceList.size() != 0) {
-                currentPrice = priceList.get(priceList.size() - 1).getPrice();
+                Price p = priceList.get(priceList.size() - 1);
+
+                //Is the date today's date
+                if(p.getDate().toLocalDate().compareTo(LocalDate.now()) == 0) {
+                    updatedToday = true;
+                }
+
+                currentPrice = p.getPrice();
                 if (priceList.size() > 1) {
                     //if the price has more than one, we can do checks on the previous price
                     priceColour = getPriceColour(priceList.get(priceList.size() - 2).getPrice());

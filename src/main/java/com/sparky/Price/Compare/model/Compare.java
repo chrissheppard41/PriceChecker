@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class Compare {
+    private boolean sendEmailToday = false;
     public String formatEmail(List<Product> emailData) {
         String output = "";
 
@@ -33,7 +34,12 @@ public class Compare {
 
         output += emailData.stream()
                 .filter(Product::isActivate)
-                .map(Product::toHtml)
+                .map(item -> {
+                    if(item.getSendEmail()) {
+                        this.sendEmailToday = true;
+                    }
+                    return item.toHtml();
+                })
                 .collect(Collectors.joining(" "));
 
         output += "</tbody>\n" +
