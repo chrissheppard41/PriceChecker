@@ -70,6 +70,8 @@ public class CompareController {
 
             if(c.isSendEmailToday()) {
                 smtpMailSender.preSend(emailBody, "Daily product report", contactList);
+            } else {
+                log.info("No new price differences today.");
             }
         } catch (MessagingException e) {
             log.error("Unable to send email :: " + e.toString());
