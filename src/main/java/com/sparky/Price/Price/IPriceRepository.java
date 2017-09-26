@@ -1,8 +1,12 @@
 package com.sparky.Price.Price;
 
 import com.sparky.Price.Price.model.Price;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -16,4 +20,8 @@ public interface IPriceRepository extends CrudRepository<Price, Long> {
 
     List<Price> findAll();
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Price p WHERE p.id = :id")
+    void remove(@Param("id") long id);
 }

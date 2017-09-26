@@ -34,10 +34,10 @@ public class Website {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private @NotNull Product product;
+    private Product product;
     @ManyToOne
     @JoinColumn(name = "provider_id")
-    private @NotNull Provider provider;
+    private Provider provider;
     private @NotEmpty @NotNull @NonNull String url;
     private LocalDateTime date = LocalDateTime.now();
 

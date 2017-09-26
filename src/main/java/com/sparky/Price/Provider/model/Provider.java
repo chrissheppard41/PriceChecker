@@ -42,7 +42,7 @@ public class Provider {
     private String currency = "£";
 
     @JsonIgnore
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "provider", fetch = FetchType.EAGER)
     private List<Website> website;
 
 

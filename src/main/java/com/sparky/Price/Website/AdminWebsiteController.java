@@ -1,5 +1,6 @@
 package com.sparky.Price.Website;
 
+import com.sparky.Price.Price.IPriceRepository;
 import com.sparky.Price.Product.IProductRepository;
 import com.sparky.Price.Provider.IProviderRepository;
 import com.sparky.Price.Website.model.Website;
@@ -22,6 +23,8 @@ public class AdminWebsiteController {
     private IProductRepository productRepository;
     @Autowired
     private IProviderRepository providerRepository;
+    @Autowired
+    private IPriceRepository priceRepository;
 
     @RequestMapping(path = "/admin/", method = RequestMethod.GET)
     public String get(Model model) {
@@ -72,7 +75,10 @@ public class AdminWebsiteController {
 
     @RequestMapping(path = "/admin/delete/{id}", method = RequestMethod.POST)
     public ModelAndView deletePost(@PathVariable("id") long id) {
-        repository.delete(id);
+        Website w = repository.findById(id);
+        w.getPriceList().stream().forEach(item -> priceRepository.remove(item.getId()));
+        repository.remove(id);
+
         return new ModelAndView("redirect:/price/api/website/admin/");
     }
 }
