@@ -1,6 +1,7 @@
 package com.sparky.Price.Product;
 
 import com.sparky.Price.Product.model.Product;
+import com.sparky.Price.Website.model.Website;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Created by chrissheppard on 20/08/2017.
@@ -42,7 +44,11 @@ public class AdminProductController {
         if (bindingResult.hasErrors()) {
             return new ModelAndView("redirect:/price/api/product/admin/add/");
         }
+        List<Website> websiteList = product.getWebsite();
+        product.getWebsite().clear();
+        product.setWebsite(websiteList);
         repository.save(product);
+
         return new ModelAndView("redirect:/price/api/product/admin/");
     }
 

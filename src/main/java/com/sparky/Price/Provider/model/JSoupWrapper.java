@@ -49,6 +49,7 @@ public class JSoupWrapper {
             if(element != null && element.size() != 0) {
 
                 elementText = Stream.concat(elementText.stream(), element.stream()
+                        .filter(item -> !item.text().equals(""))
                         .map(item -> this.getElementBestPrice(item.text())))
                         .collect(Collectors.toList());
 
