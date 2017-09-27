@@ -51,7 +51,7 @@ public class ProductTest {
 
 
         try {
-            when(provider.getBestWebsitePrice("http://testurl.com")).thenReturn(10f);
+            when(provider.getProviderPrice("http://testurl.com")).thenReturn(10f);
         } catch (IOException e) {
             e.printStackTrace();
         }

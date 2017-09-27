@@ -52,7 +52,7 @@ public class Website {
     private Price setPrice() throws IOException {
         Price p = new Price();
         if(provider != null) {
-            Float websitePrice = provider.getBestWebsitePrice(url);
+            Float websitePrice = provider.getProviderPrice(url);
             if(websitePrice != 0f) {
                 if(this.anyChangeInPrice(websitePrice)) {
                     p.setPrice(websitePrice);
